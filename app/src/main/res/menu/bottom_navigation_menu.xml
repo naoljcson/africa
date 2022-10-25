@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btmNavMenuBrowse"
+        android:icon="@drawable/ic_browse"
+        android:title="Browse" />
+
+    <item
+        android:id="@+id/btmNavMenuWatch"
+        android:icon="@drawable/ic_video"
+        android:title="Watch" />
+
+    <item
+        android:id="@+id/btmNavMenuLocation"
+        android:title="Location"
+        android:icon="@drawable/ic_map"
+        />
+
+    <item
+        android:id="@+id/btmNavMenuGallery"
+        android:icon="@drawable/ic_gallery"
+        android:title="Gallery" />
+
+</menu>
