@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "740207791392",
+    "firebase_url": "https://myapp-39e1a.firebaseio.com",
+    "project_id": "myapp-39e1a",
+    "storage_bucket": "myapp-39e1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740207791392:android:9cb729e8be9dbf81e81b45",
+        "android_client_info": {
+          "package_name": "com.naoljcson.africa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740207791392-fvgueqp1fafq0noig462pknc988bmt9l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVyt7ycvxVjsKFJLfaPdZ72ppQt1X_sNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740207791392-fvgueqp1fafq0noig462pknc988bmt9l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
