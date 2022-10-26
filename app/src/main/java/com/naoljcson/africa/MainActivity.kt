@@ -1,18 +1,20 @@
 package com.naoljcson.africa
 
-import android.app.UiModeManager
-import android.content.Context
+import android.animation.ObjectAnimator
 import android.os.Build
 import android.os.Build.VERSION_CODES.Q
 import android.os.Bundle
-import android.util.Log
+import android.view.View
+import android.view.animation.AnticipateInterpolator
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.animation.doOnEnd
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.naoljcson.africa.databinding.ActivityMainBinding
-import com.squareup.picasso.Picasso
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,14 +30,42 @@ class MainActivity : AppCompatActivity() {
     private val firebaseStorage = FirebaseStorage.getInstance()
     private val storageReference: StorageReference = firebaseStorage.reference
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityMainBinding.inflate(layoutInflater)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
+
+
+        if (Build.VERSION.SDK_INT >= Q)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         else
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        installSplashScreen()
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Add a callback that's called when the splash screen is animating to
+        // the app content.
+        splashScreen.setOnExitAnimationListener { splashScreenView ->
+            // Create your custom animation.
+            val slideUp = ObjectAnimator.ofFloat(
+                splashScreenView,
+                View.TRANSLATION_Y,
+                0f,
+                -splashScreenView.height.toFloat()
+            )
+            slideUp.interpolator = AnticipateInterpolator()
+            slideUp.duration = 200L
+
+            // Call SplashScreenView.remove at the end of your custom animation.
+            slideUp.doOnEnd { splashScreenView.remove() }
+
+            // Run your animation.
+            slideUp.start()
+        }
+
+
+
+
 //        storageReference.child("buffalo-1.jpg")
 //            .downloadUrl.addOnSuccessListener { uri ->
 //                Log.d(TAG, "uri $uri")
