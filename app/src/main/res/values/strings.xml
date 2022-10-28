@@ -3,5 +3,8 @@
     <string name="headline">
         The world\'s most social felines, lions roam the savannas and grasslands of the African continent,
         hunting cooperatively and raising cubs in prides.</string>
+    <string name="txt_wilderness_in_picture">Wilderness in Picture</string>
+    <string name="txt_did_you_know">Did you know?</string>
+    <string name="all_about_animal_name">All About %s</string>
 
 </resources>

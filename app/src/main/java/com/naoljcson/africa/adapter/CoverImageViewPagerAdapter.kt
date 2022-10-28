@@ -1,15 +1,10 @@
 package com.naoljcson.africa.adapter
 
-import android.annotation.SuppressLint
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.naoljcson.africa.databinding.ItemCoverImageBinding
-import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 
 class CoverImageViewPagerAdapter(private val images: List<Uri>) :

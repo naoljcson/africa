@@ -9,7 +9,11 @@
         android:id="@+id/nav_home_dest"
         android:name="com.naoljcson.africa.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_dest_to_animalDetailFragment"
+            app:destination="@id/animalDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_video_dest"
         android:name="com.naoljcson.africa.ui.vidoe.VideoFragment"
@@ -25,4 +29,13 @@
         android:name="com.naoljcson.africa.ui.gallery.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" />
+    <fragment
+        android:id="@+id/animalDetailFragment"
+        android:name="com.naoljcson.africa.ui.animal.detail.AnimalDetailFragment"
+        android:label="AnimalDetailFragment"
+        tools:layout="@layout/fragment_animal_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

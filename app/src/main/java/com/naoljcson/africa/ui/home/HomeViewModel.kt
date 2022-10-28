@@ -7,17 +7,12 @@ import com.naoljcson.africa.data.model.Animal
 import com.naoljcson.africa.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val homeRepository:HomeRepository) : ViewModel() {
-//    private val _ldCoverImages = MutableStateFlow<List<String>>(emptyList())
-//    val ldCoverImages = _ldCoverImages.asStateFlow()
-
+class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository) : ViewModel() {
     private val _ldImageUri = MutableStateFlow<List<Uri>?>(null)
     val ldImageUri = _ldImageUri.asStateFlow()
 
@@ -29,12 +24,6 @@ class HomeViewModel @Inject constructor(private val homeRepository:HomeRepositor
             _ldImageUri.emit(uri)
         }
     }
-
-//    fun getImageURI(imageName: String) = viewModelScope.launch {
-//        homeRepository.getImageURI(imageName).collect { uri ->
-//            _ldImageUri.emit(uri)
-//        }
-//    }
 
     fun getAnimals() = viewModelScope.launch {
         homeRepository.getAnimals().collect { animals ->

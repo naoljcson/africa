@@ -26,9 +26,9 @@
                 android:id="@+id/imageView"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
+                android:background="@color/gray"
                 android:contentDescription="@string/app_name"
-                android:scaleType="centerCrop"
-                android:background="@color/gray"/>
+                android:scaleType="centerCrop" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -36,30 +36,30 @@
             android:id="@+id/tvAnimalName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="150dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="150dp"
+            android:background="@color/gray"
+            android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cdImageContainer"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/app_name"
-            android:background="@color/gray"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvHeadline"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_margin="8dp"
+            android:background="@color/gray"
             android:maxLines="2"
+            android:text="@string/headline"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cdImageContainer"
-            app:layout_constraintTop_toBottomOf="@+id/tvAnimalName"
-            android:text="@string/headline"
-            android:textColor="@color/gray"
-            android:background="@color/gray"/>
+            app:layout_constraintTop_toBottomOf="@+id/tvAnimalName" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

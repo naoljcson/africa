@@ -5,10 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.naoljcson.africa.data.model.Animal
 import com.naoljcson.africa.databinding.ItemAnimalBinding
-import com.squareup.picasso.NetworkPolicy
+import com.naoljcson.africa.utils.OnClickListener
 import com.squareup.picasso.Picasso
 
-class AnimalsListAdapter(private val animals: List<Animal>) :
+class AnimalsListAdapter(private val animals: List<Animal>, private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<AnimalsListAdapter.AnimalViewHolder>() {
 
     inner class AnimalViewHolder(val binding: ItemAnimalBinding) :
@@ -31,10 +31,15 @@ class AnimalsListAdapter(private val animals: List<Animal>) :
                         .into(binding.imageView)
                 }
             }
+            binding.root.setOnClickListener {
+                onClickListener.onClick(position)
+            }
         }
     }
 
     override fun getItemCount(): Int {
         return animals.size
     }
+
+
 }

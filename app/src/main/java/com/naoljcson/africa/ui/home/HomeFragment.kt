@@ -9,17 +9,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.storage.StorageReference
+import com.naoljcson.africa.R
 import com.naoljcson.africa.adapter.AnimalsListAdapter
 import com.naoljcson.africa.adapter.CoverImageViewPagerAdapter
 import com.naoljcson.africa.data.model.Animal
 import com.naoljcson.africa.databinding.FragmentHomeBinding
+import com.naoljcson.africa.utils.OnClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnClickListener {
 
     companion object {
         private val TAG = HomeFragment::class.qualifiedName
@@ -49,7 +52,7 @@ class HomeFragment : Fragment() {
         viewModel.getAnimals()
         observerCoverImages()
         observeAnimals()
-        animalsListAdapter = AnimalsListAdapter(animals)
+        animalsListAdapter = AnimalsListAdapter(animals,this)
         coverImageViewPagerAdapter = CoverImageViewPagerAdapter(imagesUri)
 
         with(binding){
@@ -108,5 +111,11 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onClick(position: Int) {
+        val bundle = Bundle()
+        bundle.putString("id", animals[position].id)
+        findNavController().navigate(R.id.action_nav_home_dest_to_animalDetailFragment, bundle)
     }
 }
