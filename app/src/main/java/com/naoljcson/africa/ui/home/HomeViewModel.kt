@@ -15,26 +15,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val homeRepository:HomeRepository) : ViewModel() {
-    private val _ldCoverImages = MutableStateFlow<List<String>>(emptyList())
-    val ldCoverImages = _ldCoverImages.asStateFlow()
+//    private val _ldCoverImages = MutableStateFlow<List<String>>(emptyList())
+//    val ldCoverImages = _ldCoverImages.asStateFlow()
 
-    private val _ldImageUri = MutableStateFlow<Uri?>(null)
+    private val _ldImageUri = MutableStateFlow<List<Uri>?>(null)
     val ldImageUri = _ldImageUri.asStateFlow()
 
     private val _ldAnimals = MutableStateFlow<List<Animal>?>(null)
     val ldAnimals = _ldAnimals.asStateFlow()
 
     fun getCoverImages() = viewModelScope.launch {
-        homeRepository.getCoverImages().collect { imageCovers ->
-            _ldCoverImages.emit(imageCovers)
-        }
-    }
-
-    fun getImageURI(imageName: String) = viewModelScope.launch {
-        homeRepository.getImageURI(imageName).collect { uri ->
+        homeRepository.getCoverImages().collect { uri ->
             _ldImageUri.emit(uri)
         }
     }
+
+//    fun getImageURI(imageName: String) = viewModelScope.launch {
+//        homeRepository.getImageURI(imageName).collect { uri ->
+//            _ldImageUri.emit(uri)
+//        }
+//    }
 
     fun getAnimals() = viewModelScope.launch {
         homeRepository.getAnimals().collect { animals ->

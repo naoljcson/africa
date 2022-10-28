@@ -38,9 +38,9 @@ class HomeFragment : Fragment() {
     private lateinit var coverImageViewPagerAdapter: CoverImageViewPagerAdapter
     private lateinit var animalsListAdapter: AnimalsListAdapter
 
-    private val images = mutableListOf<String>()
+//    private val images = mutableListOf<String>()
     private val animals = mutableListOf<Animal>()
-//    private val imagesUri = mutableListOf<Uri>()
+    private val imagesUri = mutableListOf<Uri>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCoverImages()
         observerCoverImages()
-        coverImageViewPagerAdapter = CoverImageViewPagerAdapter(images)
+        coverImageViewPagerAdapter = CoverImageViewPagerAdapter(imagesUri)
         binding.vpCoverImages.adapter = coverImageViewPagerAdapter
 
         animalsListAdapter = AnimalsListAdapter(animals)
@@ -67,9 +67,12 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun observerCoverImages() {
+
         lifecycleScope.launchWhenStarted {
-            viewModel.ldCoverImages.collect {
-                images.addAll(it)
+            viewModel.ldImageUri.collect {
+                if (it != null) {
+                    imagesUri.addAll(it)
+                }
                 coverImageViewPagerAdapter.notifyDataSetChanged()
             }
         }

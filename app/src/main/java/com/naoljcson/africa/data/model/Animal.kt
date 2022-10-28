@@ -1,5 +1,6 @@
 package com.naoljcson.africa.data.model
 
+import android.net.Uri
 import androidx.annotation.Keep
 
 @Keep
@@ -10,6 +11,7 @@ data class Animal(
     var description: String? = null,
     var link: String? = null,
     var image: String? = null,
+    var imageUri: Uri? = null,
     var gallery: List<String>? = null,
     var fact: List<String>? = null,
 )
