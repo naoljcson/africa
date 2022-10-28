@@ -12,17 +12,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.storage.StorageReference
 import com.naoljcson.africa.adapter.AnimalsListAdapter
 import com.naoljcson.africa.adapter.CoverImageViewPagerAdapter
 import com.naoljcson.africa.data.model.Animal
 import com.naoljcson.africa.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     companion object {
         private val TAG = HomeFragment::class.qualifiedName
     }
+
+    @Inject
+    lateinit var storageReference: StorageReference
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

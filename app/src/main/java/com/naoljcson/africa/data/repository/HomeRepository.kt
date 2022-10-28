@@ -11,11 +11,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class HomeRepository {
-    private val db = FirebaseFirestore.getInstance()
-    private val firebaseStorage = FirebaseStorage.getInstance()
-    private val storageReference: StorageReference = firebaseStorage.reference
+class HomeRepository @Inject constructor(
+    private val db: FirebaseFirestore,
+    private val storageReference: StorageReference){
 
     suspend fun getCoverImages(): Flow<List<String>> = flow {
         Log.i("", "getCoverImage 1")

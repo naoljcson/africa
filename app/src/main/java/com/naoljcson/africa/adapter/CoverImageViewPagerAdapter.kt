@@ -1,10 +1,8 @@
 package com.naoljcson.africa.adapter
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.storage.FirebaseStorage
@@ -37,7 +35,6 @@ class CoverImageViewPagerAdapter(private val images: List<String>) :
                     .downloadUrl.addOnSuccessListener { uri ->
                         Picasso.get()
                             .load(uri)
-                            .networkPolicy(NetworkPolicy.OFFLINE)
                             .into(binding.ivCover)
                     }.addOnFailureListener {
                         Log.d("CoverImageViewPagerAdapter", "Failed to load ${it.message}")
