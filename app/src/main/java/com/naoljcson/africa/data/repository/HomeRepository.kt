@@ -18,7 +18,6 @@ class HomeRepository @Inject constructor(
     private val db: FirebaseFirestore,
     private val storageReference: StorageReference
 ) {
-
     suspend fun getCoverImages(): Flow<List<Uri>> = flow {
         val coverImages = mutableListOf<Uri>()
         val snapshot = db.collection("covers").get().await()
@@ -44,10 +43,16 @@ class HomeRepository @Inject constructor(
 
     suspend fun getAnimals(): Flow<List<Animal>> = flow {
         val snapshot = db.collection("animals").get().await()
-//        Log.i("", "getCoverImages getAnimals ${snapshot.documents}")
         val animals = mutableListOf<Animal>()
         animals.addAll(snapshot.toObjects(Animal::class.java))
-        animals.map { it.imageUri = it.image?.let { fileName -> getImageURI(fileName.toJPG()) } }
+        animals.map {
+            it.imageUri = it.image?.let { fileName ->
+                getImageURI(fileName.toJPG())
+            }
+//            it.gallery?.forEach { fileName ->
+//                it.galleryUri?.add(getImageURI(fileName.toJPG()))
+//            }
+        }
         emit(animals)
     }.flowOn(Dispatchers.IO)
 }

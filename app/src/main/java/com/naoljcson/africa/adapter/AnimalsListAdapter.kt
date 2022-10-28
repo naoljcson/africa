@@ -28,7 +28,6 @@ class AnimalsListAdapter(private val animals: List<Animal>) :
                     Picasso
                         .get()
                         .load(uri)
-                        .networkPolicy(NetworkPolicy.OFFLINE)
                         .into(binding.imageView)
                 }
             }

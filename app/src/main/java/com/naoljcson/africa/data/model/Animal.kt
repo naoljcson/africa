@@ -13,5 +13,6 @@ data class Animal(
     var image: String? = null,
     var imageUri: Uri? = null,
     var gallery: List<String>? = null,
+    var galleryUri: MutableList<Uri>? = mutableListOf(),
     var fact: List<String>? = null,
 )

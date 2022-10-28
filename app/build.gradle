@@ -73,6 +73,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.0"
 
     //Hilt dependencies
     implementation("com.google.dagger:hilt-android:2.44")

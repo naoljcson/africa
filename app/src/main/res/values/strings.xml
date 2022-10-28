@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Africa</string>
+    <string name="headline">
+        The world\'s most social felines, lions roam the savannas and grasslands of the African continent,
+        hunting cooperatively and raising cubs in prides.</string>
 
 </resources>

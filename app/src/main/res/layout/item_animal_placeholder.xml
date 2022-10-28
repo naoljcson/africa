@@ -24,11 +24,11 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
                 android:contentDescription="@string/app_name"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo" />
+                android:background="@color/gray"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -36,25 +36,30 @@
             android:id="@+id/tvAnimalName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginStart="8dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cdImageContainer"
             app:layout_constraintTop_toTopOf="parent"
-            tool:text="Lion" />
+            android:text="@string/app_name"
+            android:background="@color/gray"
+            />
 
         <TextView
             android:id="@+id/tvHeadline"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_margin="8dp"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cdImageContainer"
             app:layout_constraintTop_toBottomOf="@+id/tvAnimalName"
-            tool:text="The world's most social felines, lions roam the savannas and grasslands of the African continent, hunting cooperatively and raising cubs in prides." />
+            android:text="@string/headline"
+            android:textColor="@color/gray"
+            android:background="@color/gray"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
