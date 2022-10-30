@@ -3,7 +3,6 @@ package com.naoljcson.africa.ui.animal.detail
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.naoljcson.africa.R
-import com.naoljcson.africa.adapter.CoverImageViewPagerAdapter
+import com.naoljcson.africa.adapter.FactsViewPagerAdapter
+import com.naoljcson.africa.adapter.GalleryViewPagerAdapter
 import com.naoljcson.africa.data.model.Animal
 import com.naoljcson.africa.databinding.FragmentAnimalDetailBinding
+import com.naoljcson.africa.utils.hide
+import com.naoljcson.africa.utils.show
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class AnimalDetailFragment : Fragment() {
@@ -29,9 +30,12 @@ class AnimalDetailFragment : Fragment() {
     private var _binding: FragmentAnimalDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var id: String
-    private lateinit var animal: Animal
-    private  var imagesUri = mutableListOf<Uri>()
-    private lateinit var adapter: CoverImageViewPagerAdapter
+
+    //    private lateinit var animal: Animal
+    private var imagesUri = mutableListOf<Uri>()
+    private var facts = mutableListOf<String>()
+    private lateinit var galleryViewPagerAdapter: GalleryViewPagerAdapter
+    private lateinit var factsPagerAdapter: FactsViewPagerAdapter
 
 
     override fun onCreateView(
@@ -41,8 +45,17 @@ class AnimalDetailFragment : Fragment() {
         _binding = FragmentAnimalDetailBinding.inflate(layoutInflater, container, false)
         id = arguments?.let { AnimalDetailFragmentArgs.fromBundle(it).id }.toString()
         viewModel.getAnimal(id)
-        adapter = CoverImageViewPagerAdapter(imagesUri)
-        binding.vpGalleryImages.adapter = adapter
+        galleryViewPagerAdapter = GalleryViewPagerAdapter(imagesUri)
+        factsPagerAdapter = FactsViewPagerAdapter(facts)
+        with(binding) {
+            with(vpGalleryImages) {
+                adapter = galleryViewPagerAdapter
+                clipToPadding = false
+                clipChildren = false
+                offscreenPageLimit = 3
+            }
+            vpFacts.adapter = factsPagerAdapter
+        }
         observeAnimal()
         return binding.root
     }
@@ -51,18 +64,49 @@ class AnimalDetailFragment : Fragment() {
     private fun observeAnimal() {
         lifecycleScope.launchWhenStarted {
             viewModel.ldAnimal.collect {
-                if (it != null) {
-                    animal = it
+                it?.let { animal ->
                     animal.galleryUri?.let { it1 -> imagesUri.addAll(it1) }
-                    adapter.notifyDataSetChanged()
+                    animal.fact?.let { it1 -> facts.addAll(it1) }
+                    factsPagerAdapter.notifyDataSetChanged()
+                    galleryViewPagerAdapter.notifyDataSetChanged()
                     with(binding) {
-                        Picasso
-                            .get()
-                            .load(animal.imageUri)
-                            .into(ivHero)
-                        tvAnimalName.text = animal.name
-                        tvDescription.text = animal.description
-                        tvHeadline.text = animal.headline
+                        with(shimmerAnimalNameContainer) {
+                            stopShimmer()
+                            hide()
+                        }
+                        with(shimmerHeroContainer) {
+                            hide()
+                            stopShimmer()
+                        }
+                        with(shimmerHeadLineContainer) {
+                            hide()
+                            stopShimmer()
+                        }
+                        with(shimmerGalleryContainer) {
+                            hide()
+                            stopShimmer()
+                        }
+                        with(ivHero) {
+                            show()
+                            Picasso
+                                .get()
+                                .load(animal.imageUri)
+                                .into(this)
+                        }
+                        with(tvAnimalName) {
+                            show()
+                            text = animal.name
+                        }
+                        with(tvDescription) {
+                            show()
+                            text = animal.description
+                        }
+                        with(tvHeadline) {
+                            show()
+                            text = animal.headline
+                        }
+                        vpGalleryImages.visibility = View.VISIBLE
+
                         tvAllAboutAnimalName.text =
                             String.format(getString(R.string.all_about_animal_name), animal.name)
                     }

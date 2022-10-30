@@ -13,6 +13,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="indicator">#3b2600</color>
     <color name="gray">#CCCCCC</color>
-    <color name="dark_gray">#514E4F</color>
+    <color name="dark_gray">#C5C1C1</color>
+    <color name="transparent">#4D000000</color>
 
 </resources>

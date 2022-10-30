@@ -8,18 +8,60 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.animal.detail.AnimalDetailFragment">
+        tools:context=".ui.animal.detail.AnimalDetailFragment"
+        tools:ignore="ExtraText">
+
+        // BEGIN: Hero
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerHeroContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@color/gray" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <ImageView
             android:id="@+id/ivHero"
             android:layout_width="match_parent"
             android:layout_height="240dp"
-            android:background="@color/dark_gray"
+            android:background="@color/transparent"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        // END: HERO
+
+        //BEGIN: ANIMAL NAME
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerAnimalNameContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivHero">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/gray"
+                android:text="@string/app_name"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:textColor="@color/gray"
+                android:textStyle="bold" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/tvAnimalName"
@@ -27,7 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivHero"
@@ -41,6 +85,33 @@
             app:layout_constraintEnd_toEndOf="@+id/tvAnimalName"
             app:layout_constraintStart_toStartOf="@+id/tvAnimalName"
             app:layout_constraintTop_toBottomOf="@+id/tvAnimalName" />
+        // END: ANIMAL NAME
+
+        // BEGIN: HEADLINE
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerHeadLineContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:background="@color/gray"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/headline"
+                android:textAlignment="center"
+                android:textColor="@color/gray"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivHero" />
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <TextView
             android:id="@+id/tvHeadline"
@@ -48,13 +119,17 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:textAlignment="center"
+            android:lineSpacingExtra="2dp"
+            android:text="@string/headline"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="@color/primaryColor"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
-            tools:text="The world\'s most social felines, lions roam the savannas and grasslands of the African continent,hunting cooperatively and raising cubs in prides." />
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+        // END: HEADLINE
+
+        //BEGIN: GALLERY
 
         <ImageView
             android:id="@+id/imageView2"
@@ -83,15 +158,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvHeadline" />
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerGalleryContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWildernessInPicture">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/gray"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpGalleryImages"
             android:layout_width="0dp"
-            android:layout_height="160dp"
+            android:layout_height="260dp"
             android:layout_marginVertical="8dp"
-            android:background="@color/dark_gray"
+            android:padding="16dp"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvWildernessInPicture" />
+        //END: GALLERY
 
         <ImageView
             android:id="@+id/imageView3"
@@ -122,9 +218,8 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vpFacts"
             android:layout_width="0dp"
-            android:layout_height="160dp"
-            android:layout_marginVertical="8dp"
-            android:background="@color/dark_gray"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDidYouKnow" />

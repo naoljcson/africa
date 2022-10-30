@@ -23,9 +23,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@color/gray"
-                android:scaleType="fitCenter"
+                android:contentDescription="@string/app_name"
                 android:padding="32dp"
-                android:contentDescription="@string/app_name" />
+                android:scaleType="fitCenter" />
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.viewpager2.widget.ViewPager2
@@ -61,6 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <include layout="@layout/item_animal_placeholder" />
 
                 <include layout="@layout/item_animal_placeholder" />
 
