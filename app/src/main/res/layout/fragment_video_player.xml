@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.video.VideoPlayerFragment">
+
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
@@ -15,25 +16,5 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerVideoContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/gray"
-            android:src="@drawable/logo" />
-    </com.facebook.shimmer.ShimmerFrameLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

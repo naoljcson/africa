@@ -30,7 +30,7 @@ class AnimalRepository @Inject constructor(
         }
         emit(animal)
     }.flowOn(Dispatchers.IO)
-/**/
+
     suspend fun getImageURI(imageName: String): Uri {
         return storageReference.child(imageName).downloadUrl.await()
     }

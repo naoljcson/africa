@@ -23,7 +23,7 @@ class HomeRepository @Inject constructor(
         val snapshot = db.collection("covers").get().await()
         snapshot.documents.forEach {
             it?.data?.get("name")?.let { fileName ->
-                coverImages.add(getImageURI(fileName.toString().toJPG()))
+                getImageURI(fileName.toString().toJPG())?.let { it1 -> coverImages.add(it1) }
             }
         }
         emit(coverImages)
@@ -32,8 +32,14 @@ class HomeRepository @Inject constructor(
     }.flowOn(Dispatchers.IO)
 
 
-    private suspend fun getImageURI(imageName: String): Uri {
-        return storageReference.child(imageName).downloadUrl.await()
+    private suspend fun getImageURI(imageName: String): Uri? {
+        var uri: Uri? = null
+        try {
+            uri = storageReference.child(imageName).downloadUrl.await()
+        } catch (e: Exception) {
+            Log.i("", "getImageURI $e")
+        }
+        return uri
     }
 
     suspend fun getAnimals(): Flow<List<Animal>> = flow {

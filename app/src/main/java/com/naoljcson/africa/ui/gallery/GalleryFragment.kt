@@ -1,32 +1,50 @@
 package com.naoljcson.africa.ui.gallery
 
-import androidx.lifecycle.ViewModelProvider
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.naoljcson.africa.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.naoljcson.africa.databinding.FragmentGalleryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     companion object {
         fun newInstance() = GalleryFragment()
     }
 
-    private lateinit var viewModel: GalleryViewModel
+    private val viewModel: GalleryViewModel by viewModels()
+    private var _binding: FragmentGalleryBinding? = null
+    private val binding get() = _binding!!
+    private val imagesUri = mutableListOf<Uri>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_gallery, container, false)
+    ): View {
+        _binding = FragmentGalleryBinding.inflate(layoutInflater, container, false)
+        viewModel.getImagesUri()
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(GalleryViewModel::class.java)
-        // TODO: Use the ViewModel
+    private fun observeImagesUri() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.ldImages.collect { uriList ->
+                if (uriList != null) {
+                    imagesUri.addAll(uriList)
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
