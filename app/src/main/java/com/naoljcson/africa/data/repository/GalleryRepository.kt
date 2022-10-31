@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.naoljcson.africa.data.model.Animal
+import com.naoljcson.africa.utils.toJPG
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -21,8 +22,10 @@ class GalleryRepository @Inject constructor(
         val uris = mutableListOf<Uri>()
         snapshot.toObjects(Animal::class.java)
             .forEach { animal ->
-                animal.image?.let { imageName ->
-                    getImageUri(imageName)?.let { uris.add(it) }
+                animal.gallery?.let { gallery ->
+                    gallery.forEach { imageName ->
+                        getImageUri(imageName.toJPG())?.let { uris.add(it) }
+                    }
                 }
             }
         emit(uris)

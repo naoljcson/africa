@@ -8,7 +8,7 @@
         <entry key="app/src/main/res/layout-v29/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2972222222222222" />
         <entry key="app/src/main/res/layout/fragment_animal_detail.xml" value="0.2813333333333333" />
-        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.3296875" />
+        <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.1935897435897436" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2972222222222222" />
         <entry key="app/src/main/res/layout/fragment_location.xml" value="0.3296875" />
         <entry key="app/src/main/res/layout/fragment_video.xml" value="0.1935897435897436" />
@@ -18,6 +18,8 @@
         <entry key="app/src/main/res/layout/item_cover_image.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/item_fact.xml" value="0.3740710156895128" />
         <entry key="app/src/main/res/layout/item_gallery_image.xml" value="0.2697734074390765" />
+        <entry key="app/src/main/res/layout/item_image.xml" value="0.19273504273504274" />
+        <entry key="app/src/main/res/layout/item_image_placeholder.xml" value="0.19273504273504274" />
         <entry key="app/src/main/res/layout/item_video.xml" value="0.335" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.375" />
       </map>
