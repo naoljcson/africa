@@ -1,23 +1,30 @@
 package com.naoljcson.africa.ui.location
 
-import android.R
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import com.naoljcson.africa.data.model.Location
 import com.naoljcson.africa.databinding.FragmentLocationBinding
+import com.naoljcson.africa.utils.getCircledBitmap
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class LocationFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
@@ -25,10 +32,11 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         private val TAG = LocationFragment::class.qualifiedName
     }
 
-    private lateinit var viewModel: LocationViewModel
+    private val viewModel: LocationViewModel by viewModels()
     private var _binding: FragmentLocationBinding? = null
     private val binding get() = _binding!!
     private lateinit var mMap: GoogleMap
+    private val locations = mutableListOf<Location>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +48,41 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getLocations()
+        observeLocation()
         val mapFragment =
             childFragmentManager.findFragmentById(com.naoljcson.africa.R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private fun observeLocation() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.ldLocations.collect {
+                if (it != null) {
+                    locations.addAll(it)
+                    val height = 100
+                    val width = 100
+
+                    locations.forEach { location ->
+                        val smallMarker = location.mapIcon?.let { it1 ->
+                            Bitmap.createScaledBitmap(
+                                it1, width, height, false
+                            )
+                        }
+                        mMap.addMarker(
+                            MarkerOptions()
+                                .position(LatLng(location.latitude, location.longitude))
+                                .anchor(0.5f, 1f)
+                                .icon(smallMarker?.let { it1 ->
+                                    BitmapDescriptorFactory.fromBitmap(
+                                        it1.getCircledBitmap()
+                                    )
+                                })
+                        )
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -72,10 +107,12 @@ class LocationFragment : Fragment(), OnMapReadyCallback {
         } catch (e: Resources.NotFoundException) {
             Log.e(TAG, "Can't find style. Error: ", e)
         }
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(6.600286, 16.4377599), 3.2f))
+        mMap.uiSettings.isZoomControlsEnabled = true;
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
